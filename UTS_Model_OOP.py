@@ -112,7 +112,7 @@ class BookingModel:
         print("\nClassification Report:")
         print(classification_report(self.y_test, self.model.predict(self.X_test_scaled)))
 
-    def save_model(self, filename="best_xgboost_model.pkl"):
+    def save_model(self, filename="models/best_xgboost_model.pkl"):
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(filename, 'wb') as f:
             pickle.dump(self.model, f)
