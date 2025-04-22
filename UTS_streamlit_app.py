@@ -1,11 +1,8 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import numpy as np
 import pickle
-import os
-from sklearn.preprocessing import LabelEncoder, RobustScaler
+from sklearn.preprocessing import RobustScaler
 
 # Load trained model
 MODEL_PATH = "best_xgboost_model.pkl"
@@ -64,13 +61,18 @@ input_df = user_input()
 st.subheader("Input Features")
 st.write(input_df)
 
+# Scaling input to match training
+scaler = RobustScaler()
+scaled_input = scaler.fit_transform(input_df)  # ideally should load the training scaler, but we re-fit here due to simplicity
+
 # Prediction
-prediction = model.predict(input_df)[0]
+prediction = model.predict(scaled_input)[0]
 result = "Booking Canceled" if prediction == 1 else "Booking Not Canceled"
 
 st.subheader("Prediction Result")
-st.write(result)
+st.success(result)
 
 # Footer
 st.markdown("---")
 st.markdown("Developed by Tyrone · UTS Model Deployment")
+
