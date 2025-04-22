@@ -1,1 +1,8 @@
+import pickle
 
+# Membuka file model
+with open('best_xgboost_model.pkl', 'rb') as file:
+    model = pickle.load(file)
+
+# Menggunakan model untuk prediksi
+predictions = model.predict(data)
